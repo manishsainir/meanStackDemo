@@ -1,0 +1,34 @@
+<div class="page-header">
+    <h1>User Login</h1>
+</div>
+<br>
+<form ng-submit='login.loginUser(loginData)'>
+    <label>Email:</label>
+    <input class="form-control" type="email" name='email' placeholder="please enter email" ng-model='login.loginData.email'>
+    <br>
+    <label>Password:</label>
+    <input class="form-control" type="password" name='password' placeholder="please enter password" ng-model='login.loginData.password'>
+    <br>
+    <button type="submit" class="btn btn-success">Submit</button>&nbsp;
+    <a href="/auth/facebook" target="_self"><button type="button" class="btn btn-primary">Facebook</button></a>
+</form>
+<br>
+
+<div class='row show-hide-message' ng-show="login.loading">
+    <div class="alert alert-info text-center">
+        <span class="glyphicon glyphicon-repeat spinner"></span> Loading...
+    </div>
+</div>
+
+<div class='row show-hide-message' ng-show="login.successMsg">
+    <div class="alert alert-success">
+        {{login.successMsg}}
+    </div>
+</div>
+<br>
+
+<div class='row show-hide-message' ng-show="login.errorMsg">
+    <div class="alert alert-danger">
+        {{login.errorMsg}}
+    </div>
+</div>
