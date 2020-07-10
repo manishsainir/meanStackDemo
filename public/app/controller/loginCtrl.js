@@ -58,4 +58,13 @@ angular.module('loginController', ['loginService'])
         Login.facebook($routeParams.token);
         $location.path('/');
     }
+})
+
+.controller('googleCtrl', function($routeParams, Login, $location, $window) {
+    if ($window.location.pathname == '/googleerror') {
+        this.errorMsg = 'google email is not found in database';
+    } else {
+        Login.facebook($routeParams.token);
+        $location.path('/');
+    }
 });

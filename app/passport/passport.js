@@ -1,4 +1,5 @@
 var FacebookStrategy = require('passport-facebook').Strategy;
+var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var User = require('../model/usermodel');
 var session = require('express-session');
 var jwt = require('jsonwebtoken');
@@ -30,7 +31,6 @@ module.exports = function(app, passport) {
         },
         function(accessToken, refreshToken, profile, done) {
             console.log(profile._json.email);
-            User.findOne
             User.findOne({ email: profile._json.email }, 'email username password', function(err, user) {
                 if (err) done(err);
                 if (user && user != null) {
@@ -41,6 +41,36 @@ module.exports = function(app, passport) {
             })
         }
     ));
+
+
+
+    passport.use(new GoogleStrategy({
+            clientID: "308528881701-gqdea7cf221b8gicqgi0fvdh06ijegd7.apps.googleusercontent.com",
+            clientSecret: "2jncuFxyhNnHVrEuwrFN3E_4",
+            callbackURL: "http://localhost:8085/auth/google/callback"
+        },
+        function(accessToken, refreshToken, profile, done) {
+            User.findOne({ email: profile.emails[0].value }, 'email username password', function(err, user) {
+                if (err) done(err);
+                if (user && user != null) {
+                    done(null, user);
+                } else {
+                    done(err);
+                }
+            })
+        }
+    ));
+
+
+    app.get('/auth/google',
+        passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login', 'profile', 'email'] }));
+
+
+    app.get('/auth/google/callback',
+        passport.authenticate('google', { failureRedirect: '/googleerror' }),
+        function(req, res) {
+            res.redirect('/google/' + token);
+        });
 
 
     app.get('/auth/facebook/callback',

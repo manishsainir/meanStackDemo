@@ -11,6 +11,7 @@
     <br>
     <button type="submit" class="btn btn-success">Submit</button>&nbsp;
     <a href="/auth/facebook" target="_self"><button type="button" class="btn btn-primary">Facebook</button></a>
+    <a href="/auth/google" target="_self"><button type="button" class="btn btn-info">Google</button></a>
 </form>
 <br>
 
@@ -30,5 +31,16 @@
 <div class='row show-hide-message' ng-show="login.errorMsg">
     <div class="alert alert-danger">
         {{login.errorMsg}}
+    </div>
+</div>
+
+<div class='row show-hide-message' ng-show="facebook.errorMsg">
+    <div class="alert alert-danger">
+        {{facebook.errorMsg}}
+    </div>
+</div>
+<div class='row show-hide-message' ng-show="google.errorMsg">
+    <div class="alert alert-danger">
+        {{google.errorMsg}}
     </div>
 </div>

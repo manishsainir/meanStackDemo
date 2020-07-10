@@ -31,6 +31,16 @@ angular.module('appRoutes', ['ngRoute'])
                 controller: "facebookCtrl",
                 controllerAs: "facebook"
             })
+            .when('/google/:token', {
+                templateUrl: '/app/views/pages/user/social/social.html',
+                controller: "googleCtrl",
+                controllerAs: "google"
+            })
+            .when('/googleerror', {
+                templateUrl: 'app/views/pages/user/login.html',
+                controller: "googleCtrl",
+                controllerAs: "google"
+            })
             .otherwise({ redirectTo: '/' });
 
         $locationProvider.html5Mode({
